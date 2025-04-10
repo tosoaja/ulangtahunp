@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Happy Birthday Furina</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #d3dae8;
+      }
+      canvas {
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      function setup() {
+        createCanvas(900, 800);
+        background('#d3dae8');
+        noLoop();
+        drawCake();
+        drawCandles();
+        drawConfetti();
+        drawText();
+      }
+
+      function drawEllipse(centerX, centerY, w, h, cFill, cStroke) {
+        push();
+        translate(centerX, centerY);
+        stroke(cStroke);
+        strokeWeight(2);
+        fill(cFill);
+        beginShape();
+        for (let angle = 0; angle <= 360; angle++) {
+          let x = w * cos(radians(angle));
+          let y = h * sin(radians(angle));
+          vertex(x, y);
+        }
+        endShape(CLOSE);
+        pop();
+      }
+
+      function drawCake() {
+        drawEllipse(width/2, 500, 150, 60, '#c5e8c8', 'white');
+        fill('#a3d2a7');
+        strokeWeight(3);
+        stroke('white');
+        arc(width/2, 500, 300, 140, PI, 0, CHORD);
+
+        drawEllipse(width/2, 430, 120, 48, '#f7e8aa', 'white');
+        fill('#f7e8aa');
+        arc(width/2, 430, 240, 96, PI, 0, CHORD);
+        drawEllipse(width/2, 430, 110, 44, '#fffceb', '#fffceb');
+
+        drawEllipse(width/2, 360, 80, 32, '#8b5a2b', '#8b5a2b');
+        drawEllipse(width/2, 360, 70, 28, '#ffa500', '#ffa500');
+        drawEllipse(width/2, 360, 80, 32, '#5e4425', '#5e4425');
+      }
+
+      function drawCandles() {
+        let positions = [60, -60, 0, 30, -30];
+        positions.forEach(offset => {
+          let x = width / 2 + offset;
+          let y = 330;
+          fill('#66cccc');
+          stroke('#66cccc');
+          rect(x - 4, y, 8, 50, 4);
+          stroke('white');
+          strokeWeight(2);
+          for (let i = 1; i <= 5; i++) {
+            line(x - 3, y + i * 10, x + 3, y + i * 10);
+          }
+          strokeWeight(2);
+          line(x, y, x, y - 10);
+          fill('#ff6600');
+          noStroke();
+          ellipse(x, y - 20, 8, 20);
+        });
+      }
+
+      function drawConfetti() {
+        let colors = ['#4CAF50', '#FFC107', '#2196F3', '#FF5722', '#9C27B0', '#3F51B5', '#00BCD4', '#009688'];
+        for (let i = 0; i < 300; i++) {
+          fill(random(colors));
+          noStroke();
+          let x = random(100, width - 100);
+          let y = random(100, height - 300);
+          let size = random(2, 6);
+          ellipse(x, y, size);
+        }
+      }
+
+      function drawText() {
+        fill(30);
+        textAlign(CENTER);
+        textSize(48);
+        textStyle(BOLD);
+        text("Happy Birthday", width / 2, 180);
+      }
+    </script>
+  </body>
+</html>
